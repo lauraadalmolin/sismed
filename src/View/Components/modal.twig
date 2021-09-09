@@ -8,12 +8,22 @@
         </div>
         <div class="modal-body">
             <form id='formulario' method="POST">
-                <input name="crm" id="crm" placeholder="CRM"></input>
-                <input name="specialty" id="specialty" placeholder="Especialidade"></input>
-                <input name="name" id="name" placeholder="Nome"></input>
-                <input name="email" id="email" placeholder="Email"></input>
-                <input name="phone" id="phone" placeholder="Telefone"></input>
-                <input name="address" id="address" placeholder="Endereço"></input>
+                {% if doctors %}
+                  <input name="crm" id="crm" placeholder="CRM"></input>
+                  <input name="specialty" id="specialty" placeholder="Especialidade"></input>
+                  <input name="name" id="name" placeholder="Nome"></input>
+                  <input name="email" id="email" placeholder="Email"></input>
+                  <input name="phone" id="phone" placeholder="Telefone"></input>
+                  <input name="address" id="address" placeholder="Endereço"></input>
+                {% endif %}
+
+                {% if laboratories %}
+                  <input name="cnpj" id="cnpj" placeholder="CNPJ"></input>
+                  <input name="name" id="name" placeholder="Nome"></input>
+                  <input name="email" id="email" placeholder="Email"></input>
+                  <input name="phone" id="phone" placeholder="Telefone"></input>
+                  <input name="address" id="address" placeholder="Endereço"></input>
+                {% endif %}
             </form>
         </div>
         <div class="modal-footer">
