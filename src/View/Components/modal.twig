@@ -1,0 +1,25 @@
+<!-- Modal -->
+<div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          {# <h5 class="modal-title" id="formModalLabel">Modal title</h5> #}
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form id='formulario' method="POST">
+                <input name="crm" id="crm" placeholder="CRM"></input>
+                <input name="specialty" id="specialty" placeholder="Especialidade"></input>
+                <input name="name" id="name" placeholder="Nome"></input>
+                <input name="email" id="email" placeholder="Email"></input>
+                <input name="phone" id="phone" placeholder="Telefone"></input>
+                <input name="address" id="address" placeholder="Endereço"></input>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+      </div>
+    </div>
+</div>

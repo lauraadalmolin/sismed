@@ -1,0 +1,21 @@
+.modal-body input {
+    height: 30px;
+    width: 100%;
+    position: relative;
+    margin: 5px;
+    border: 1.3px solid #979696;
+    border-radius: 4px;
+    text-align: left;
+    padding: 2px 10px;
+}
+  
+.modal-body input::placeholder{
+    text-align: center;
+}
+
+.modal-body input:focus,
+.modal-body textarea:focus {
+    border: 1.3px solid #556BD9;
+    box-shadow: 0 0 0 0;
+    outline: none;
+}

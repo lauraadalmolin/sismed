@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doctors>
+    <doctor>
+        <name>Emanuel Bento Rodrigo Costa</name>
+        <crm>263.853.127-80</crm>
+        <address>Rua Melro, 483 - Bairro Jardim das Palmeiras, Uberlândia - MG</address>
+        <phone>(34) 98710-4891</phone>
+        <email>emanuelbentorodrigocosta-98@trimempresas.com.br</email>
+        <specialty>Clínico Geral</specialty>
+    </doctor>
+    <doctor>
+        <name>Catarina Fátima Maitê Lima</name>
+        <crm>984.259.395-93</crm>
+        <address>Rua G, 122 - Bairro Jardim Maracanã, Rondonópolis - MT</address>
+        <phone>(66) 98758-4522</phone>
+        <email>catarinafatimamaitelima-98@truran.com.br</email>
+        <specialty>Pediatra</specialty>
+    </doctor>
+    <doctor>
+        <name>Nicole Regina Ana Monteiro</name>
+        <crm>465.119.238-60</crm>
+        <address>Rua da Laguna, 274 - Bairro Aeroporto, Aracaju - SE</address>
+        <phone>(79) 98578-1368</phone>
+        <email>nicolereginaanamonteiro-71@sofisticattomoveis.com.br</email>
+        <specialty>Cardiologista</specialty>
+    </doctor>
+</doctors>

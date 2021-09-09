@@ -1,0 +1,80 @@
+<div class="table-responsive">
+  <table class="table table-hover">
+    
+      {% if doctors %}
+        <thead class="">
+          <th>
+            CRM
+          </th>
+          <th>
+            Especialidade
+          </th>
+          <th>
+            Nome
+          </th>
+          <th>
+            Endereço
+          </th>
+          <th>
+            Telefone
+          </th>
+          <th>
+            Email
+          </th>
+          <th>
+          </th>
+          <tbody>
+        </thead>
+        {% for doctor in doctors %}
+          <tr>
+            <td>{{ doctor.crm }}</td>
+            <td>{{ doctor.specialty }}</td>
+            <td>{{ doctor.name }}</td>
+            <td>{{ doctor.address }}</td>
+            <td>{{ doctor.phone }}</td>
+            <td>{{ doctor.email }}</td>
+            <td>
+              <button type="button" class="btn btn-outline-info">Editar</button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      {% endif %}
+
+      {% if laboratories %}
+        <thead class="">
+          <th>
+            CNPJ
+          </th>
+          <th>
+            Nome
+          </th>
+          <th>
+            Endereço
+          </th>
+          <th>
+            Telefone
+          </th>
+          <th>
+            Email
+          </th>
+          <th>
+          </th>
+          <tbody>
+        </thead>
+        {% for laboratory in laboratories %}
+          <tr>
+            <td>{{ laboratory.cnpj }}</td>
+            <td>{{ laboratory.name }}</td>
+            <td>{{ laboratory.address }}</td>
+            <td>{{ laboratory.phone }}</td>
+            <td>{{ laboratory.email }}</td>
+            <td>
+              <button type="button" class="btn btn-outline-info">Editar</button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      {% endif %}
+  </table>
+</div>

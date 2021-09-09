@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<laboratories>
+    <laboratory>
+        <name>Lunav</name>
+        <cnpj>00.202.369/0001-87</cnpj>
+        <address>R. Aquidaban, 697 - Bairro Centro, Rio Grande - RS</address>
+        <phone>(53) 2125-5555</phone>
+        <email>lunav@mail.com</email>
+    </laboratory>
+    <laboratory>
+        <name>Birck</name>
+        <cnpj>91.559.815/0002-41</cnpj>
+        <address>Rua General Osorio, 586 - Bairro Centro, Rio Grande - RS</address>
+        <phone>(53) 98404-2130</phone>
+        <email>paulpaim@terra.com.br</email>
+    </laboratory>
+    <laboratory>
+        <name>Tesla Medicina Diagnóstica</name>
+        <cnpj>09.183.040/0001-90</cnpj>
+        <address>Rua Quinze de Novembro, 469 - Bairro Centro, Pelotas - RS</address>
+        <phone>(53) 3027-6854</phone>
+        <email>ligione.tesla@gmail.com</email>
+    </laboratory>
+</laboratories>
