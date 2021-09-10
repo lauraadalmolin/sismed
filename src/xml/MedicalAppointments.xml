@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<medical_appointments>
+  <medical_appointment>
+    <date>09/12/2021</date>
+    <doctor>Joana</doctor>
+    <patient>Beatriz</patient>
+    <prescription>Amoxicillin</prescription>
+    <observations>Don't eat for at least two hours before the exam to keep blood sugar and blood pressure from elevating.</observations>
+  </medical_appointment>
+</medical_appointments>

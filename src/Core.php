@@ -30,6 +30,12 @@
                 'class' => 'PatientsController',
                 'method' => 'showPatientsView',
             ),
+
+            array(
+                'alias' => 'consultas',
+                'class' => 'MedicalAppointmentsController',
+                'method' => 'showMedicalAppointmentsView',
+            ),
         );
 
         private $controller = "";

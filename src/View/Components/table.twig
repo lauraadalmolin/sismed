@@ -154,5 +154,39 @@
           {% endfor %}
         </tbody>
       {% endif %}
+
+      {% if medical_appointments %}
+        <thead class="">
+          <th>
+            Date
+          </th>
+          <th>
+            Doctor
+          </th>
+          <th>
+            Patient
+          </th>
+          <th>
+            Prescription
+          </th>
+          <th>
+            Observations
+          </th>
+          <tbody>
+        </thead>
+        {% for medical_appointment in medical_appointments %}
+          <tr>
+            <td>{{ medical_appointment.date }}</td>
+            <td>{{ medical_appointment.doctor }}</td>
+            <td>{{ medical_appointment.patient }}</td>
+            <td>{{ medical_appointment.prescription }}</td>
+            <td>{{ medical_appointment.observations }}</td>
+            <td>
+              <button type="button" class="btn btn-outline-info">Editar</button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      {% endif %}
   </table>
 </div>
