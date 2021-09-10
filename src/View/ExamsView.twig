@@ -1,0 +1,13 @@
+{% extends "Layout.twig" %}
+
+{% block body_content %}
+
+    <div>
+        <div>
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#formModal"><span class="iconify-inline" data-icon="carbon:folder-add"></span> Adicionar</button>
+        </div>
+        {% include "Components/table.twig" %}
+        {% include "Components/modal.twig" %}
+    </div>
+
+{% endblock %}

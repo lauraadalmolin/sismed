@@ -11,15 +11,25 @@
                 'method' => 'showHomeView',
             ),
             array(
-                'alias' => '/medicos',
+                'alias' => 'medicos',
                 'class' => 'DoctorsController',
                 'method' => 'showDoctorsView',
             ),
             array(
-                'alias' => '/laboratorios',
+                'alias' => 'laboratorios',
                 'class' => 'LaboratoriesController',
                 'method' => 'showLaboratoriesView',
-            )
+            ),
+            array(
+                'alias' => 'exames',
+                'class' => 'ExamsController',
+                'method' => 'showExamsView',
+            ),
+            array(
+                'alias' => 'pacientes',
+                'class' => 'PatientsController',
+                'method' => 'showPatientsView',
+            ),
         );
 
         private $controller = "";
@@ -35,9 +45,8 @@
         }
 
         public function start ($request) {
-
-            if(isset($request["url"])){
-                $url = substr_replace($request["url"], '/', 0, 0);
+            if($_SERVER['REQUEST_URI'] !== '/'){
+                $url = str_replace('/', '', $_SERVER['REQUEST_URI']);
                 foreach ($this->routes as $route) {
                     if($route["alias"] === $url ){
                         $this->controller = $route["class"];

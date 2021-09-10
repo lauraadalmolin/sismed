@@ -5,6 +5,8 @@
     require_once "src/Controller/IndexController.php";
     require_once "src/Controller/DoctorsController.php";
     require_once "src/Controller/LaboratoriesController.php";
+    require_once "src/Controller/ExamsController.php";
+    require_once "src/Controller/PatientsController.php";
     
 
     $core = new Core;

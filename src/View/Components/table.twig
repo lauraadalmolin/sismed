@@ -76,5 +76,83 @@
           {% endfor %}
         </tbody>
       {% endif %}
+
+      {% if exams %}
+        <thead class="">
+          <th>
+            Data
+          </th>
+          <th>
+            Laboratório
+          </th>
+          <th>
+            Paciente
+          </th>
+          <th>
+            Tipo de Exame
+          </th>
+          <th>
+            Resultado
+          </th>
+          <th>
+          </th>
+          <tbody>
+        </thead>
+        {% for exam in exams %}
+          <tr>
+            <td>{{ exam.date }}</td>
+            <td>{{ exam.laboratory }}</td>
+            <td>{{ exam.patient }}</td>
+            <td>{{ exam.type }}</td>
+            <td>{{ exam.result }}</td>
+            <td>
+              <button type="button" class="btn btn-outline-info">Editar</button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      {% endif %}
+
+      {% if patients %}
+        <thead class="">
+          <th>
+            Nome
+          </th>
+          <th>
+            Endereço
+          </th>
+          <th>
+            Telefone
+          </th>
+          <th>
+            E-mail
+          </th>
+          <th>
+            Gênero
+          </th>
+          <th>
+            Idade
+          </th>
+          <th>
+            CPF
+          </th>
+          <tbody>
+        </thead>
+        {% for patient in patients %}
+          <tr>
+            <td>{{ patient.name }}</td>
+            <td>{{ patient.address }}</td>
+            <td>{{ patient.phone }}</td>
+            <td>{{ patient.email }}</td>
+            <td>{{ patient.gender }}</td>
+            <td>{{ patient.age }}</td>
+            <td>{{ patient.cpf }}</td>
+            <td>
+              <button type="button" class="btn btn-outline-info">Editar</button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      {% endif %}
   </table>
 </div>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<exams>
+  <exam>
+    <date>21/09/2021</date>
+    <laboratory>Gram</laboratory>
+    <patient>Luiza Azevedo</patient>
+    <type>Exame de sangue</type>
+    <result>Normal</result>
+  </exam>
+  <exam>
+    <date>11/08/2021</date>
+    <laboratory>Gram</laboratory>
+    <patient>Catarina Fátima Maitê Lima</patient>
+    <type>Exame de urina</type>
+    <result>Alterado</result>
+  </exam>
+  <exam>
+    <date>12/08/2021</date>
+    <laboratory>Gram</laboratory>
+    <patient>Nicole Regina Ana Monteiro</patient>
+    <type>Raio X</type>
+    <result>Normal</result>
+  </exam>
+</exams>
