@@ -37,7 +37,7 @@
                 <td>{{ exam.result }}</td>
                 {% if role == "laboratorie" %}    
                     <td>
-                        <button type="button" class="btn btn-outline-info">Editar</button>
+                        <button id="{{ exam.id }}" type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#formModal-editar-exame" onclick="editExam(this, 'buscar-by-id/')">Editar</button>
                     </td>
                 {% endif %}
             </tr>

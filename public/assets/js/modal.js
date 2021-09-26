@@ -69,3 +69,40 @@ function editPatient(element, action){
         } 
     })
 }
+
+function editConsulta(element, action){
+
+    $.post(action, {queryString: ""+element.id+""}, function(data){
+
+        if(JSON.parse(data)) {
+            let consulta = JSON.parse(data);
+            let date = consulta.date.split(" ");
+            $('input[id$="consultaID-edit"]').val(consulta.id);
+            $('input[id$="patientID-edit"]').val(consulta.patientID);
+            $('input[id$="patient"]').val(consulta.patient);
+            $('input[id$="prescription-edit"]').val(consulta.prescription);
+            $('textarea[id$="observations-edit"]').val(consulta.observations);
+            $('input[id$="date-edit"]').val(date[0]);
+            $('input[id$="timepicker-edit"]').val(date[1]);
+            
+        } 
+    })
+}
+
+function editExam(element, action){
+
+    $.post(action, {queryString: ""+element.id+""}, function(data){
+        if(JSON.parse(data)) {
+            let exame = JSON.parse(data);
+            let date = exame.date.split(" ");
+            $('input[id$="examID"]').val(exame.id);
+            $('input[id$="patientID-edit"]').val(exame.patientID);
+            $('input[id$="patient"]').val(exame.patient);
+            $('input[id$="type-edit"]').val(exame.type);
+            $('input[id$="result-edit"]').val(exame.result);
+            $('input[id$="date-edit"]').val(date[0]);
+            $('input[id$="timepicker-edit"]').val(date[1]);
+            
+        } 
+    })
+}

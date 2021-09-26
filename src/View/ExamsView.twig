@@ -10,11 +10,11 @@
         <div >
             <button class="btn btn-primary" onClick="history.go(-1)" >Voltar</button>
             {% if role == "laboratorie" %}
-                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#formModal"><span class="iconify-inline" data-icon="carbon:folder-add"></span> Adicionar</button>
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#formModal-novo-exame"><span class="iconify-inline" data-icon="carbon:folder-add"></span> Adicionar</button>
             {% endif %}
         </div>
         {% include "Components/tables/exams.twig" %}
-        {% include "Components/modal.twig" %}
+        {% include "Components/modals/exams.twig" %}
     </div>
 
 {% endblock %}

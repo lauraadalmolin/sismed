@@ -11,68 +11,80 @@
     require_once "src/Controller/MedicalAppointmentsController.php";
     require_once "src/Controller/AccountController.php";
 
-    $user_session = $_SESSION["user"] ?? null;
-    $user_role = "admin"; //DESENVOLVER ESSA PARTE DE SALVAR A FUNÇÂO NA SESSÃO
-    
+    $user_session = json_decode($_SESSION["user"], true) ?? null;    
+    $user_role = $user_session["role"][0]; 
+
     $user_permissions = array(
         array(
             "role"=> "patient",
             "permissions"=> [
-                "/",
-                "consultas/",
-                "exames/"
+                "/sismed/",
+                "/sismed/consultas/",
+                "/sismed/exames/"
             ]
         ),
         array(
             "role"=> "doctor",
             "permissions"=> [
-                "/",
-                "consultas/",
-                "consultas/searchPatients/",
-                "consultas/salvar/",
+                "/sismed//",
+                "/sismed/consultas/",
+                "/sismed/consultas/searchPatients/",
+                "/sismed/consultas/salvar/",
+                "/sismed/consultas/editar/",
+                "/sismed/consultas/buscar-by-id/",
+            ]
+        ),
+        array(
+            "role"=> "laboratorie",
+            "permissions"=> [
+                "/sismed/",
+                "/sismed/exames/",
+                "/sismed/exames/searchPatients/",
+                "/sismed/exames/salvar/",
+                "/sismed/exames/editar/",
+                "/sismed/exames/buscar-by-id/",
             ]
         ),
         array(
             "role"=> "admin",
             "permissions"=> [
-                "/",
-                "medicos/",
-                "medicos/salvar/",
-                "medicos/editar/",
-                "medicos/buscar-by-id/",
-                "pacientes/",
-                "pacientes/salvar/",
-                "pacientes/editar/",
-                "pacientes/buscar-by-id/",
-                "laboratorios/",
-                "laboratorios/salvar/",
-                "laboratorios/editar/",
-                "laboratorios/buscar-by-id/",
+                "/sismed/",
+                "/sismed/medicos/",
+                "/sismed/medicos/salvar/",
+                "/sismed/medicos/editar/",
+                "/sismed/medicos/buscar-by-id/",
+                "/sismed/pacientes/",
+                "/sismed/pacientes/salvar/",
+                "/sismed/pacientes/editar/",
+                "/sismed/pacientes/buscar-by-id/",
+                "/sismed/laboratorios/",
+                "/sismed/laboratorios/salvar/",
+                "/sismed/laboratorios/editar/",
+                "/sismed/laboratorios/buscar-by-id/",
             ]
         ),
     );
     
     $core = new Core;
     
-    
-    if(isset($_GET["url"])){
-        $check = substr($_GET["url"], -1);
+    if(isset($_SERVER["REQUEST_URI"])){
+        $check = substr($_SERVER["REQUEST_URI"], -1);
         if($check !== "/"){
-            $url = $_GET["url"] . "/";
+            $url = $_SERVER["REQUEST_URI"] . "/";
         } else {
-            $url = $_GET["url"];
+            $url = $_SERVER["REQUEST_URI"];
         }
         
     } else {
-        $url = "/";
+        $url = "/sismed/";
     }
 
     if($user_session){
         $key = array_search($user_role, array_column($user_permissions, 'role'));
 
         $not_permissions = [
-            'login/',
-            'login/entrar/'
+            '/sismed/login/',
+            '/sismed/login/entrar/'
         ];
 
         if(in_array($url, $not_permissions) || !in_array($url, $user_permissions[$key]["permissions"] )){
@@ -80,12 +92,12 @@
         } 
     } else {
         $permissions = [
-            'login/'
+            '/sismed/login/'
         ];
         if(!in_array($url, $permissions)){
             header("Location: /sismed/login/");
         }
     }
 
-    $core->start($url);
+    $core->start($url);  
 ?>

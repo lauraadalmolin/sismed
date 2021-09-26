@@ -36,7 +36,7 @@
                 {% if role == "doctor" %}
                     <td>{{ medical_appointment.observations }}</td>
                     <td>
-                        <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#formModal">Editar</button>
+                        <button type="button" id="{{ medical_appointment.id }}" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#formModal-edit-consulta" onclick="editConsulta(this, 'buscar-by-id/')">Editar</button>
                     </td>
                 {% endif %}
               </tr>

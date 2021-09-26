@@ -6,103 +6,133 @@
     class Core {
         private $routes = array(
             array(
-                'alias' => '/',
+                'alias' => '/sismed/',
                 'class' => 'IndexController',
                 'method' => 'showHomeView',
             ),
             array(
-                'alias' => 'medicos/',
+                'alias' => '/sismed/medicos/',
                 'class' => 'DoctorsController',
                 'method' => 'showDoctorsView',
             ),
             array(
-                'alias' => 'medicos/buscar-by-id/',
+                'alias' => '/sismed/medicos/buscar-by-id/',
                 'class' => 'DoctorsController',
                 'method' => 'getDoctorByID',
             ),
             array(
-                'alias' => 'medicos/salvar/',
+                'alias' => '/sismed/medicos/salvar/',
                 'class' => 'DoctorsController',
                 'method' => 'novoMedico',
             ),
             array(
-                'alias' => 'medicos/editar/',
+                'alias' => '/sismed/medicos/editar/',
                 'class' => 'DoctorsController',
                 'method' => 'editarMedico',
             ),
             array(
-                'alias' => 'laboratorios/',
+                'alias' => '/sismed/laboratorios/',
                 'class' => 'LaboratoriesController',
                 'method' => 'showLaboratoriesView',
             ),
             array(
-                'alias' => 'laboratorios/salvar/',
+                'alias' => '/sismed/laboratorios/salvar/',
                 'class' => 'LaboratoriesController',
                 'method' => 'novoLaboratorio',
             ),
             array(
-                'alias' => 'laboratorios/editar/',
+                'alias' => '/sismed/laboratorios/editar/',
                 'class' => 'LaboratoriesController',
                 'method' => 'editarLaboratorio',
             ),
             array(
-                'alias' => 'laboratorios/buscar-by-id/',
+                'alias' => '/sismed/laboratorios/buscar-by-id/',
                 'class' => 'LaboratoriesController',
                 'method' => 'getLaboratoryByID',
             ),
             array(
-                'alias' => 'exames/',
+                'alias' => '/sismed/exames/',
                 'class' => 'ExamsController',
                 'method' => 'showExamsView',
             ),
             array(
-                'alias' => 'pacientes/',
+                'alias' => '/sismed/exames/salvar/',
+                'class' => 'ExamsController',
+                'method' => 'novoExame',
+            ),
+            array(
+                'alias' => '/sismed/exames/editar/',
+                'class' => 'ExamsController',
+                'method' => 'editarExame',
+            ),
+            array(
+                'alias' => '/sismed/exames/buscar-by-id/',
+                'class' => 'ExamsController',
+                'method' => 'getExamByID',
+            ),
+            array(
+                'alias' => '/sismed/exames/searchPatients/',
+                'class' => 'PatientsController',
+                'method' => 'searchPatients',
+            ),
+            array(
+                'alias' => '/sismed/pacientes/',
                 'class' => 'PatientsController',
                 'method' => 'showPatientsView',
             ),
             array(
-                'alias' => 'pacientes/salvar/',
+                'alias' => '/sismed/pacientes/salvar/',
                 'class' => 'PatientsController',
                 'method' => 'novoPaciente',
             ),
             array(
-                'alias' => 'pacientes/editar/',
+                'alias' => '/sismed/pacientes/editar/',
                 'class' => 'PatientsController',
                 'method' => 'editarPaciente',
             ),
             array(
-                'alias' => 'pacientes/buscar-by-id/',
+                'alias' => '/sismed/pacientes/buscar-by-id/',
                 'class' => 'PatientsController',
                 'method' => 'getPacienteByID',
             ),
             
             array(
-                'alias' => 'consultas/',
+                'alias' => '/sismed/consultas/',
                 'class' => 'MedicalAppointmentsController',
                 'method' => 'showMedicalAppointmentsView',
             ),
             array(
-                'alias' => 'consultas/searchPatients/',
+                'alias' => '/sismed/consultas/searchPatients/',
                 'class' => 'PatientsController',
                 'method' => 'searchPatients',
             ),
             array(
-                'alias' => 'consultas/salvar/',
+                'alias' => '/sismed/consultas/salvar/',
                 'class' => 'MedicalAppointmentsController',
                 'method' => 'novaConsulta',
             ),
             array(
-                'alias' => 'login/',
+                'alias' => '/sismed/consultas/editar/',
+                'class' => 'MedicalAppointmentsController',
+                'method' => 'editarConsulta',
+            ),
+            array(
+                'alias' => '/sismed/consultas/buscar-by-id/',
+                'class' => 'MedicalAppointmentsController',
+                'method' => 'getConsultaByID',
+            ),
+            array(
+                'alias' => '/sismed/login/',
                 'class' => 'AccountController',
                 'method' => 'showLoginView',
             ),
             array(
-                'alias' => 'login/entrar/',
+                'alias' => '/sismed/login/entrar/',
                 'class' => 'AccountController',
                 'method' => 'entrar',
             ),
             array(
-                'alias' => 'login/sair/',
+                'alias' => '/sismed/login/sair/',
                 'class' => 'AccountController',
                 'method' => 'sair',
             ),
@@ -122,17 +152,21 @@
             $this->loader = new \Twig\Loader\FilesystemLoader('src/View');
             $this->twig = new \Twig\Environment($this->loader);
 
-            $this->user = array(
-                "name" => "Talita Pastorini",
-                "id" => 'f963b064b23370d4aae4c392193ffeb9',
-                "role" => 'admin',
-                "email" => 'talitapastorini@gmail.com',
-            );
+            $user_session = json_decode($_SESSION["user"], true) ?? null;
             
-            $initials = $this->getInitialsName($this->user["name"]);
-            
-            $this->twig->addGlobal("initials", $initials);
-            $this->twig->addGlobal("role", $this->user["role"]);
+            if(isset($user_session)){
+                $this->user = array(
+                    "name" => $user_session["name"][0],
+                    "id" => $user_session["id"][0],
+                    "role" => $user_session["role"][0],
+                    "email" => $user_session["email"][0],
+                );
+                
+                $initials = $this->getInitialsName($this->user["name"]);
+                
+                $this->twig->addGlobal("initials", $initials);
+                $this->twig->addGlobal("role", $this->user["role"]);
+            }
         }
 
         public function start ($url) {
@@ -147,17 +181,16 @@
             echo call_user_func(array(new $this->controller, $this->method));
         }
 
-        // protected function setUser($data){
-        //     echo"_--------------------setUser";
-        //     $this->user = json_encode($data);
-        //     var_dump($this->user);
-        //     $initials = $this->getInitialsName($this->user["name"]);
-        //     $this->twig->addGlobal("initials", $initials);
-        // }
-
         private function getInitialsName($name){
-            // FAZER A FUNÇẪO QUE RECEBE O NOME E RETORNAR AS INICIAIS
-            return "TP";
+            $exp = explode(" ", $name); 
+
+            
+            if(count($exp) >= 2){
+                $initials = $exp[0][0].$exp[1][0];
+            } else {
+                $initials = $name[0];
+            }
+            return $initials;
         }
     }
 ?>

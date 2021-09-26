@@ -25,6 +25,7 @@
                     "email" => $user->email,
                     "password" => $user->password,
                     "name" => $user->name,
+                    "role" => $user->role,
                 ));
             } 
             

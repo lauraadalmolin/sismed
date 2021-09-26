@@ -48,6 +48,7 @@
                 $user = $xmlFile_users->addChild("user");
                 
                 $user->addChild("id", $id);
+                $user->addChild("name", $name);
                 $user->addChild("email", $email);
                 $user->addChild("password", $password);
                 $user->addChild("role", 'doctor');

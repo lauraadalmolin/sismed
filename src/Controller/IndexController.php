@@ -45,8 +45,16 @@
                         'icon' => "fa-user-md"
                     ),
                 );
+            } elseif($this->user["role"] === "laboratorie"){
+                $this->home_cards = array(
+                    array(
+                        'title' => "Exames",
+                        'link' => '/sismed/exames/',
+                        'icon' => "fa-diagnoses"
+                    ),
+                );
             }
-
+            
             return $this->twig->render("IndexView.twig", ["cards" => $this->home_cards]);
         }
 
