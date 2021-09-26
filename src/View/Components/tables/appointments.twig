@@ -1,0 +1,46 @@
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead class="">
+            <th>
+              Data
+            </th>
+            {% if role == "doctor" %}
+                <th>
+                    Paciente
+                </th>
+            {% else %}    
+                <th>
+                    Médico
+                </th>
+            {% endif %}
+            <th>
+              Prescrição
+            </th>
+            {% if role == "doctor" %}
+                <th>
+                    Observações
+                </th>
+                <th></th>
+            {% endif %}
+        </thead>
+        <tbody>
+            {% for medical_appointment in medical_appointments %}
+              <tr>
+                <td>{{ medical_appointment.date }}</td>
+                {% if role == "doctor" %}
+                    <td>{{ medical_appointment.patient }}</td>
+                {% else %}    
+                    <td>{{ medical_appointment.doctor }}</td>
+                {% endif %}
+                <td>{{ medical_appointment.prescription }}</td>
+                {% if role == "doctor" %}
+                    <td>{{ medical_appointment.observations }}</td>
+                    <td>
+                        <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#formModal">Editar</button>
+                    </td>
+                {% endif %}
+              </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

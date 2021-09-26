@@ -1,13 +1,19 @@
 {% extends "Layout.twig" %}
 
+{% block isLogin %}{% endblock %}
+
 {% block body_content %}
 
-    <div>
+    <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Pacientes</h1>
+        </div>
         <div>
+            <button class="btn btn-primary" onClick="history.go(-1)" >Voltar</button>
             <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#formModal"><span class="iconify-inline" data-icon="carbon:folder-add"></span> Adicionar</button>
         </div>
-        {% include "Components/table.twig" %}
-        {% include "Components/modal.twig" %}
+        {% include "Components/tables/patients.twig" %}
+        {% include "Components/modals/patients.twig" %}
     </div>
 
 {% endblock %}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+  <user>
+    <name>Talita Pastorini</name>
+    <email>talitapastorini@gmail.com</email>
+    <password>$2y$10$bAJQJov517hQ3wiCTletjuEye.mzel4inmnlp.hT2.EBj2Zno/8a.</password>
+    <id>f963b064b23370d4aae4c392193ffeb9</id>
+    <role>admin</role>
+  </user>
+<user><id>60f6332bdbcf91d1376c4022054a9cd7</id><email>leticianataliadossantos@michaelpage.com.br</email><password>$2y$10$W.wpEM6izvMWQtxAJca9GObiEC/iheQvVrB8U/mXCwTHtY/qtwPom</password><role>doctor</role></user><user><id>770e54175ee60d2da7e23ea3b7857040</id><email>ceciliaalessandrabrito@mundivox.com.br</email><password>$2y$10$X8r2o.9JzrWFycPMu1PI1O9.mlLdOgg3PHJrr1l9.EJL/0/xeBu02</password><role>doctor</role></user><user><id>6d9e1430bb6b8dd7b6fcb05eb041b317</id><email>isaacvictor@numero.com.br</email><password>$2y$10$X/ChuvDkyOWub4ZNrQwL6uKFSbWooHP4d2j/fIR2AISNOdlAymuxS</password><role>patient</role></user><user><id>ef47cc28f45be01c519472b9604468be</id><email>lorenareginaalicebrito@hotamail.com</email><password>$2y$10$mFdUT7g.qR.S.8EJKL5GMeZYRyiK8p4/muqDLsi.DSa/o7fxx.NKK</password><role>patient</role></user></users>

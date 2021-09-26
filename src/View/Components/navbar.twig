@@ -2,18 +2,23 @@
 
 <div class="l-navbar" id="nav-bar">
   <nav class="nav">
-      <div> <a href="/" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">SisMed</span> </a>
+      <div> <a href="/sismed/" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">SisMed</span> </a>
           <div class="nav_list"> 
-            <a href="/" class="nav_link active"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span> </a> 
-            <a href="/medicos" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Médicos</span> </a> 
-            <a href="/laboratorios" class="nav_link"> <i class='bx bx-message-square-detail nav_icon'></i> <span class="nav_name">Laboratórios</span> </a> 
-            <a href="/exames" class="nav_link"> <i class='bx bx-folder nav_icon'></i> <span class="nav_name">Exames</span> </a> 
-            <a href="/pacientes" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Pacientes</span> </a> 
-            {# <a href="#" class="nav_link"> <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Bookmark</span> </a> 
-            <a href="#" class="nav_link"> <i class='bx bx-bar-chart-alt-2 nav_icon'></i> <span class="nav_name">Stats</span> </a>  #}
-            <a href="/consultas" class="nav_link"> <i class='bx bx-folder nav_icon'></i> <span class="nav_name">Consultas</span> </a> 
+            <a href="/sismed/" class="nav_link active"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span> </a> 
+            {% if role == "admin" %}
+              <a href="/sismed/medicos/" class="nav_link"> <i class='fa fa-user-md nav_icon'></i> <span class="nav_name">Médicos</span> </a> 
+              <a href="/sismed/pacientes/" class="nav_link"> <i class='fa fa-user nav_icon'></i> <span class="nav_name">Pacientes</span> </a>             
+              <a href="/sismed/laboratorios/" class="nav_link"> <i class='fa fa-clinic-medical nav_icon'></i> <span class="nav_name">Laboratórios</span> </a> 
+            {% elseif role == "doctor" %}
+              <a href="/sismed/consultas/" class="nav_link"> <i class='fa fa-calendar nav_icon'></i> <span class="nav_name">Consultas</span> </a> 
+            {% else %}
+              <a href="/sismed/exames/" class="nav_link"> <i class='bx bx-folder nav_icon'></i> <span class="nav_name">Exames</span> </a> 
+            {# {% else %}
+              <a href="/sismed/consultas" class="nav_link"> <i class='bx bx-folder nav_icon'></i> <span class="nav_name">Consultas</span> </a> 
+              <a href="/sismed/exames" class="nav_link"> <i class='bx bx-folder nav_icon'></i> <span class="nav_name">Exames</span> </a>  #}
+              {% endif %}
             
           </div>
-      </div> <a href="#" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">Sair</span> </a>
+      </div> <a href="/sismed/login/sair/" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">Sair</span> </a>
   </nav>
 </div>
