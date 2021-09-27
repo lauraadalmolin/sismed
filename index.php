@@ -26,7 +26,7 @@
         array(
             "role"=> "doctor",
             "permissions"=> [
-                "/sismed//",
+                "/sismed/",
                 "/sismed/consultas/",
                 "/sismed/consultas/searchPatients/",
                 "/sismed/consultas/salvar/",
