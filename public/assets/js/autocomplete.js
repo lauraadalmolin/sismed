@@ -6,6 +6,11 @@ var linkTag;
 
 window.onload = function(){
     searchWrapper = document.querySelector(".search-input");
+    
+    if (!searchWrapper) {
+        return;
+    }
+
     inputBox = searchWrapper.querySelector("#patient");
     inputId = searchWrapper.querySelector("#patientID");
     suggBox = searchWrapper.querySelector(".autocom-box");
