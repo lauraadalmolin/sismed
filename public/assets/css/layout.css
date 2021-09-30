@@ -64,7 +64,7 @@ a {
     width: 40px
 }
 
-.body-pd {
+#body-pd {
     padding-left: calc(var(--nav-width) + 1rem)
 }
 
@@ -98,6 +98,57 @@ a {
     border-radius: 5px;
     position: relative;
 }
+
+.avatar-circle {
+    width: 50px;
+    height: 50px;
+    background-color: #556BD9;
+    text-align: center;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+}
+
+.initials {
+    position: relative;
+    top: 10px; /* 25% of parent */
+    font-size: 25px; /* 50% of parent */
+    line-height: 25px; /* 50% of parent */
+    color: #fff;
+    font-weight: bold;
+}
+.text-gray-300 {
+    color: #dddfeb !important;
+}
+
+.text-gray-800 {
+    color: #5a5c69 !important;
+}
+
+.text-xs {
+    font-size: .7rem;
+}
+
+.font-weight-light {
+    font-weight: 300 !important;
+}
+
+.font-weight-lighter {
+    font-weight: lighter !important;
+}
+
+.font-weight-normal {
+    font-weight: 400 !important;
+}
+
+.font-weight-bold {
+    font-weight: 700 !important;
+}
+
+.font-weight-bolder {
+    font-weight: bolder !important;
+}
+
 @media screen and (min-width: 768px) {
     body {
         margin: calc(var(--header-height) + 1rem) 0 0 0;
@@ -127,7 +178,4 @@ a {
         width: calc(var(--nav-width) + 156px)
     }
 
-    .body-pd {
-        padding-left: calc(var(--nav-width) + 188px)
-    }
 }

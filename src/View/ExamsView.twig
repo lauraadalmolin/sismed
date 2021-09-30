@@ -1,13 +1,20 @@
 {% extends "Layout.twig" %}
 
-{% block body_content %}
+{% block isLogin %}{% endblock %}
 
-    <div>
-        <div>
-            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#formModal"><span class="iconify-inline" data-icon="carbon:folder-add"></span> Adicionar</button>
+{% block body_content %}
+    <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Exames</h1>
         </div>
-        {% include "Components/table.twig" %}
-        {% include "Components/modal.twig" %}
+        <div >
+            <button class="btn btn-primary" onClick="history.go(-1)" >Voltar</button>
+            {% if role == "laboratorie" %}
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#formModal-novo-exame"><span class="iconify-inline" data-icon="carbon:folder-add"></span> Adicionar</button>
+            {% endif %}
+        </div>
+        {% include "Components/tables/exams.twig" %}
+        {% include "Components/modals/exams.twig" %}
     </div>
 
 {% endblock %}

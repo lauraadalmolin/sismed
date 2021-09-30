@@ -1,0 +1,80 @@
+<!-- Modal -->
+<div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form id='formulario' method="POST" action="salvar/">
+                <div class="wrapper-input">
+                    <input name="crm" id="crm" placeholder="CRM"></input>
+                </div>
+                <div class="wrapper-input">
+                    <input name="specialty" id="specialty" placeholder="Especialidade"></input>
+                </div>
+                <div class="wrapper-input">
+                    <input name="name" id="name" placeholder="Nome"></input>
+                </div>
+                <div class="wrapper-input">
+                    <input name="email" id="email" placeholder="Email"></input>
+                </div>
+                <div class="wrapper-input">
+                    <input type="password" name="password" id="password" placeholder="Senha"></input>
+                </div>
+                <div class="wrapper-input">
+                    <input name="phone" id="phone" placeholder="Telefone"></input>
+                </div>
+                <div class="wrapper-input">
+                    <input name="address" id="address" placeholder="Endereço"></input>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<!-- Modal EDIÇÃO -->
+<div class="modal fade" id="formModalEdit" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form id='formulario' method="POST" action="editar/">
+                <input type="hidden" name="doctorID-edit" id="doctorID-edit">
+                <div class="wrapper-input">
+                    <input name="crm-edit" id="crm-edit" placeholder="CRM"></input>
+                </div>
+                <div class="wrapper-input">
+                    <input name="specialty-edit" id="specialty-edit" placeholder="Especialidade"></input>
+                </div>
+                <div class="wrapper-input">
+                    <input name="name-edit" id="name-edit" placeholder="Nome"></input>
+                </div>
+                <div class="wrapper-input">
+                    <input name="email-edit" id="email-edit" placeholder="Email"></input>
+                </div>
+                <div class="wrapper-input">
+                    <input name="phone-edit" id="phone-edit" placeholder="Telefone"></input>
+                </div>
+                <div class="wrapper-input">
+                    <input name="address-edit" id="address-edit" placeholder="Endereço"></input>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+

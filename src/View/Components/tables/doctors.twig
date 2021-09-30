@@ -1,0 +1,41 @@
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead class="">
+            <th>
+              CRM
+            </th>
+            <th>
+              Especialidade
+            </th>
+            <th>
+              Nome
+            </th>
+            <th>
+              Endereço
+            </th>
+            <th>
+              Telefone
+            </th>
+            <th>
+              Email
+            </th>
+            <th>
+            </th>
+        </thead>
+        <tbody>
+            {% for doctor in doctors %}
+            <tr>
+                <td>{{ doctor.crm }}</td>
+                <td>{{ doctor.specialty }}</td>
+                <td>{{ doctor.name }}</td>
+                <td>{{ doctor.address }}</td>
+                <td>{{ doctor.phone }}</td>
+                <td>{{ doctor.email }}</td>
+                <td>
+                <button type="button" id="{{ doctor.id }}" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#formModalEdit" onclick="editDoctor(this, 'buscar-by-id/')">Editar</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

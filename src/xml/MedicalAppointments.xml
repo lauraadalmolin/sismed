@@ -1,11 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <medical_appointments>
-  <medical_appointment>
-    <date>09/12/2021</date>
-    <doctor>Joana</doctor>
-    <patient>Beatriz</patient>
-    <prescription>Amoxicillin</prescription>
-    <observations>Don't eat for at least two hours before the exam to keep blood sugar and blood pressure from elevating.</observations>
-  </medical_appointment>
-</medical_appointments>
+<medical_appointment><id>82964b97ef2288954141ed36f4614bee</id><date>2021-09-30 09:55</date><doctor>Talita Pastorini</doctor><doctorID>f963b064b23370d4aae4c392193ffeb9</doctorID><patient>Laura Dalmolin</patient><patientID>BFvDW4tGSUe5RPwOfEJvHw</patientID><prescription>testess</prescription><observations>testando</observations></medical_appointment><medical_appointment><id>a80c7e155d08873b29899b1688f19c36</id><date>2021-09-29 09:15</date><doctor>Letícia Natália dos Santos</doctor><doctorID>60f6332bdbcf91d1376c4022054a9cd7</doctorID><patient>Lorena Regina Alice Brito</patient><patientID>ef47cc28f45be01c519472b9604468be</patientID><prescription>-</prescription><observations>-</observations></medical_appointment></medical_appointments>
