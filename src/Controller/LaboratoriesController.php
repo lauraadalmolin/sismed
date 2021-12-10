@@ -54,6 +54,8 @@
 
                 $xmlFile_users->asXML("src/xml/Users.xml");
 
+                $lab = array('id' => $id, 'cnpj' => $cnpj, 'name' => $name, 'email' => $email, 'address' => $address, 'phone' => $phone);
+                $this->insertLab($lab);
                 header("Location: /sismed/laboratorios/");
             }
 

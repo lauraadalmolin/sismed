@@ -147,11 +147,22 @@
         protected $user;
         private $error;
 
+        private $DB_USER = 'b2df0fbbf1e8f2';
+        private $DB_PASSWORD = '00891f1d';
+
+        protected $connection;
 
         public function __construct() {
             $this->loader = new \Twig\Loader\FilesystemLoader('src/View');
             $this->twig = new \Twig\Environment($this->loader);
-
+            try {
+                //code...
+                $this->connection = new PDO("mysql:host=us-cdbr-east-04.cleardb.com;dbname=heroku_28b7288f93e7ae1", $this->DB_USER, $this->DB_PASSWORD);
+                $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+                throw new Exception("Error Processing Request", 1);
+            }
             $user_session = json_decode($_SESSION["user"], true) ?? null;
             
             if(isset($user_session)){
@@ -191,6 +202,19 @@
                 $initials = $name[0];
             }
             return $initials;
+        }
+
+        protected function insertLab($lab){
+            $sql_query = "INSERT INTO laboratories(id,cnpj,name,email,address,phone) VALUES(:id,:cnpj,:name,:email,:address,:phone);";
+            $stmt = $this->connection->prepare($sql_query);
+            $stmt->bindParam(":id", $lab['id']);
+            $stmt->bindParam(":cnpj", $lab['cnpj']);
+            $stmt->bindParam(":name", $lab['name']);
+            $stmt->bindParam(":email", $lab['email']);
+            $stmt->bindParam(":address", $lab['address']);
+            $stmt->bindParam(":phone", $lab['phone']);
+
+            $stmt->execute();
         }
     }
 ?>
