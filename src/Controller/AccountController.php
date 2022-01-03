@@ -7,8 +7,6 @@
         private $email;
         private $password;
 
-        private $users = [];
-
         public function showLoginView(){
             $parameters["error"] = $_SESSION["msg_error"]["msg"] ?? null;
     

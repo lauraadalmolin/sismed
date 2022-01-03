@@ -5,7 +5,6 @@
     class LaboratoriesController extends Core {
 
         private $laboratories = [];
-        private $users = [];
 
         public function showLaboratoriesView(){
             $this->loadAllLaboratories();
@@ -54,8 +53,8 @@
 
                 $xmlFile_users->asXML("src/xml/Users.xml");
 
-                $lab = array('id' => $id, 'cnpj' => $cnpj, 'name' => $name, 'email' => $email, 'address' => $address, 'phone' => $phone);
-                $this->insertLab($lab);
+                // $lab = array('id' => $id, 'cnpj' => $cnpj, 'name' => $name, 'email' => $email, 'address' => $address, 'phone' => $phone);
+                // $this->insertLab($lab);
                 header("Location: /sismed/laboratorios/");
             }
 
@@ -136,34 +135,26 @@
         }
 
         private function loadAllLaboratories(){
-            $xmlFile = simplexml_load_file("src/xml/Laboratories.xml");
+            $dbLabs = $this->get("SELECT * FROM laboratories");
 
-            foreach ($xmlFile->children() as $laboratory) {
-
-                array_push($this->laboratories, array(
-                    "id" => $laboratory->id->__toString(),
-                    "cnpj" => $laboratory->cnpj->__toString(),
-                    "name" => $laboratory->name->__toString(),
-                    "address" => $laboratory->address->__toString(),
-                    "phone" => $laboratory->phone->__toString(),
-                    "email" => $laboratory->email->__toString(),
-                ));
-            } 
+            foreach ($dbLabs as $lab) {
+                array_push($this->laboratories, $lab);
+            }
         }
 
-        private function loadAllUsers(){
-            $xmlFile_users = simplexml_load_file("src/xml/Users.xml");
+        // private function loadAllUsers(){
+        //     $xmlFile_users = simplexml_load_file("src/xml/Users.xml");
 
-            foreach ($xmlFile_users->children() as $user) {
+        //     foreach ($xmlFile_users->children() as $user) {
             
-                array_push($this->users, array(
-                    "id" => $user->id->__toString(),
-                    "name" => $user->name->__toString(),
-                    "email" => $user->email->__toString(),
-                    "role" => $user->role->__toString(),
-                ));
-            } 
-        }
+        //         array_push($this->users, array(
+        //             "id" => $user->id->__toString(),
+        //             "name" => $user->name->__toString(),
+        //             "email" => $user->email->__toString(),
+        //             "role" => $user->role->__toString(),
+        //         ));
+        //     } 
+        // }
     }
     
 ?>

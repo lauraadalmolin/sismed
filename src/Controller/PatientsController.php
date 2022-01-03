@@ -5,7 +5,6 @@
     class PatientsController extends Core {
 
         private $patients = [];
-        private $users = [];
 
         public function showPatientsView(){
             $this->loadAllPatients();    
@@ -170,33 +169,23 @@
         }
 
         private function loadAllPatients(){
-            $xmlFile = simplexml_load_file("src/xml/Patients.xml");
+            $dbPatients = $this->get("SELECT * FROM patients");
 
-            foreach ($xmlFile->children() as $patient) {
-
-                array_push($this->patients, array(
-                    "id" => $patient->id->__toString(),
-                    "name" => $patient->name->__toString(),
-                    "address" => $patient->address->__toString(),
-                    "phone" => $patient->phone->__toString(),
-                    "email" => $patient->email->__toString(),
-                    "gender" => $patient->gender->__toString(),
-                    "age" => $patient->age->__toString(),
-                    "cpf" => $patient->cpf->__toString(),
-                ));
-            }  
+            foreach ($dbPatients as $patient) {
+                array_push($this->patients, $patient);
+            }
         }
-        private function loadAllUsers(){
-            $xmlFile_users = simplexml_load_file("src/xml/Users.xml");
+        // private function loadAllUsers(){
+        //     $xmlFile_users = simplexml_load_file("src/xml/Users.xml");
 
-            foreach ($xmlFile_users->children() as $user) {
+        //     foreach ($xmlFile_users->children() as $user) {
 
-                array_push($this->users, array(
-                    "id" => $user->id->__toString(),
-                    "name" => $user->name->__toString(),
-                    "email" => $user->email->__toString(),
-                    "role" => $user->role->__toString(),
-                ));
-            } 
-        }
+        //         array_push($this->users, array(
+        //             "id" => $user->id->__toString(),
+        //             "name" => $user->name->__toString(),
+        //             "email" => $user->email->__toString(),
+        //             "role" => $user->role->__toString(),
+        //         ));
+        //     } 
+        // }
     }
