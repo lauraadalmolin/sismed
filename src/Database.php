@@ -47,5 +47,6 @@
                 array_push($this->users, $user);
             }
         }
+
     }
 ?>  
