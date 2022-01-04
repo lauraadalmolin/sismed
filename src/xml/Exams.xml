@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<exams>
-  
-<exam><id>075f5736d8d480fd4bbd93a47e91c169</id><date>2022-02-22 10:10</date><laboratory>Birck</laboratory><laboratoryID>0d8405d891932f053a50ddd3dd1fe260</laboratoryID><patient>Isaac Victor Iago Monteiro</patient><patientID>6d9e1430bb6b8dd7b6fcb05eb041b317</patientID><type>Sangue</type><result>Normal</result></exam><exam><id>bf5389a2f7d2c8728237858302cb949e</id><date>2021-10-12 09:30</date><laboratory>Birck</laboratory><laboratoryID>0d8405d891932f053a50ddd3dd1fe260</laboratoryID><patient>Lorena Regina Alice Brito</patient><patientID>ef47cc28f45be01c519472b9604468be</patientID><type>Sangue</type><result>Alterado</result></exam></exams>

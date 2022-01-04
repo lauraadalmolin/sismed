@@ -12,7 +12,7 @@
     require_once "src/Controller/AccountController.php";
 
     $user_session = json_decode($_SESSION["user"], true) ?? null;    
-    $user_role = $user_session["role"][0]; 
+    $user_role = $user_session["role"]; 
 
     $user_permissions = array(
         array(
@@ -98,6 +98,5 @@
             header("Location: /sismed/login/");
         }
     }
-
     $core->start($url);  
 ?>

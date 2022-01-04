@@ -43,7 +43,6 @@
         }
 
         public function novoPaciente(){
-            $this->loadAllPatients();
             $cpf = $_POST["cpf"]; //CHAVE ÚNICA
             $gender = $_POST["gender"];
             $age = $_POST["age"];
@@ -53,38 +52,18 @@
             $phone = $_POST["phone"];
             $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
-
-            $key = array_search($cpf, array_column($this->patients, 'cpf'));
+            $dbData = $this->get("SELECT * FROM patients WHERE cpf='$cpf'");
            
-            if($key === 0 || $key > 0) {
+            if(count($dbData) > 0) {
                 header("Location: /sismed/pacientes/");
-            } else {
-                $xmlFile = simplexml_load_file("src/xml/Patients.xml");
-                
+            } else {                
                 $id = md5(uniqid(rand(), true));
 
-                $lab = $xmlFile->addChild("patient");
-                $lab->addChild("id", $id);
-                $lab->addChild("cpf", $cpf);
-                $lab->addChild("gender", $gender);
-                $lab->addChild("age", $age);
-                $lab->addChild("name", $name);
-                $lab->addChild("email", $email);
-                $lab->addChild("address", $address);
-                $lab->addChild("phone", $phone);
-    
-                $xmlFile->asXML("src/xml/Patients.xml");
+                $data = array('cpf' => $cpf,'id' => $id,'name' => $name,'email' => $email,'address' => $address,'phone' => $phone,'gender' => $gender,'age' => $age);
+                $this->insert($data, 'INSERT INTO patients(id,cpf,name,email,address,phone,gender,age) VALUES (:id,:cpf,:name,:email,:address,:phone,:gender,:age);');
+                $userData = array('id' => $id, 'name' => $name, 'email' => $email, 'password' => $password, 'role' => 'patient', );
+                $this->insert($userData, "INSERT INTO users(id, name, email, password, role) VALUES(:id,:name,:email,:password,:role);");
 
-                $xmlFile_users = simplexml_load_file("src/xml/Users.xml");
-
-                $user = $xmlFile_users->addChild("user");
-                
-                $user->addChild("id", $id);
-                $user->addChild("email", $email);
-                $user->addChild("password", $password);
-                $user->addChild("role", 'patient');
-
-                $xmlFile_users->asXML("src/xml/Users.xml");
 
                 header("Location: /sismed/pacientes/");
             }
@@ -92,9 +71,6 @@
         }
 
         public function editarPaciente(){
-            $this->loadAllPatients();
-            $this->loadAllUsers();
-
             $cpf = $_POST["cpf-edit"]; //CHAVE ÚNICA
             $id = $_POST["patientID-edit"];
             $gender = $_POST["gender-edit"];
@@ -104,35 +80,13 @@
             $address = $_POST["address-edit"];
             $phone = $_POST["phone-edit"];
 
-            $key = array_search($id, array_column($this->patients, 'id'));
-
-            if($key === 0 || $key > 0) {
-                $xmlFile = simplexml_load_file("src/xml/Patients.xml");
-
-                $paciente = $xmlFile->patient[$key];
-
-                $paciente->cpf = $cpf;
-                $paciente->gender = $gender;
-                $paciente->age = $age;
-                $paciente->name = $name;
-                $paciente->email = $email;
-                $paciente->phone = $phone;
-                $paciente->address = $address;
-
-                $xmlFile->asXML("src/xml/Patients.xml");
-
-                $key = array_search($id, array_column($this->users, 'id'));
-
-                if($key === 0 || $key > 0) {
-                    $xmlFile_users = simplexml_load_file("src/xml/Users.xml");
-                    
-                    $user = $xmlFile_users->user[$key];
-                    
-                    $user->email = $email;
-
-                    $xmlFile_users->asXML("src/xml/Users.xml");
-
-                }
+            $paciente = $this->get("SELECT * FROM patients WHERE id='$id'");
+            
+            if(count($paciente) > 0) {
+                $data = array('cpf' => $cpf,'id' => $id,'name' => $name,'email' => $email,'address' => $address,'phone' => $phone,'gender' => $gender,'age' => $age);
+                $this->update($data, 'UPDATE patients SET id=:id,cpf=:cpf,name=:name,email=:email,address=:address,phone=:phone,gender=:gender,age=:age WHERE id=:id');
+                $data = array('email' => $email, 'id' => $id);
+                $this->update($data, 'UPDATE users SET email=:email WHERE id=:id');  
 
                 header("Location: /sismed/pacientes/");
             } else {
@@ -141,27 +95,16 @@
         }
 
         public function getPacienteByID(){
-            $this->loadAllPatients();
-
             if(isset($_POST['queryString'])) {
                 $queryString = $_POST['queryString'];
                 
                 if(strlen($queryString) > 0) {
-                    $key = array_search($queryString, array_column($this->patients, 'id'));
+                    $paciente = $this->get("SELECT * FROM patients WHERE id='$queryString'");
                     
-                    if($key === 0 || $key > 0) {
-                        $paciente = array(
-                            "id" => $this->patients[$key]["id"],
-                            "name"=> $this->patients[$key]["name"],
-                            "address" => $this->patients[$key]["address"],
-                            "phone" => $this->patients[$key]["phone"],
-                            "email" => $this->patients[$key]["email"],
-                            "cpf" => $this->patients[$key]["cpf"],
-                            "gender" => $this->patients[$key]["gender"],
-                            "age" => $this->patients[$key]["age"],
-                        );
+                    if(count($paciente) > 0) {
+                        $key = array_search($queryString, array_column($paciente, 'id'));
 
-                        return json_encode($paciente);
+                        return json_encode($paciente[$key]);
                     } 
                 }
             }
@@ -175,17 +118,4 @@
                 array_push($this->patients, $patient);
             }
         }
-        // private function loadAllUsers(){
-        //     $xmlFile_users = simplexml_load_file("src/xml/Users.xml");
-
-        //     foreach ($xmlFile_users->children() as $user) {
-
-        //         array_push($this->users, array(
-        //             "id" => $user->id->__toString(),
-        //             "name" => $user->name->__toString(),
-        //             "email" => $user->email->__toString(),
-        //             "role" => $user->role->__toString(),
-        //         ));
-        //     } 
-        // }
     }

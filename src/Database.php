@@ -4,7 +4,7 @@
         private $DB_PASSWORD = '00891f1d';
 
         private $connection;
-        private $users = [];
+        protected $users = [];
 
         protected function connection_start(){
              
@@ -13,6 +13,20 @@
             
         }
 
+        protected function update($data = [], $query){
+            $stmt = $this->connection->prepare($query);
+            
+            foreach ($data as $key => $value) {
+                $stmt->bindValue(":$key", $value);
+            }
+    
+            try {
+                $stmt->execute();
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+                throw new Exception("Error Processing Request", 1);
+            }
+        }
         protected function insert($data = [], $query){
             $stmt = $this->connection->prepare($query);
             

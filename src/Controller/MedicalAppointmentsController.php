@@ -24,44 +24,25 @@
             $doctorID = $this->user["id"];
             $doctorName = $this->user["name"];
             $date = $_POST["date"]." ".$_POST["timepicker"]; 
-           
-            $xmlFile = simplexml_load_file("src/xml/MedicalAppointments.xml");
-
-            $consulta = $xmlFile->addChild("medical_appointment");
-            $consulta->addChild("id", md5(uniqid(rand(), true)));
-            $consulta->addChild("date", $date);
-            $consulta->addChild("doctor", $doctorName);
-            $consulta->addChild("doctorID", $doctorID);
-            $consulta->addChild("patient", $patientName);
-            $consulta->addChild("patientID", $patientID);
-            $consulta->addChild("prescription", $prescription);
-            $consulta->addChild("observations", $observations);
+            $id = md5(uniqid(rand(), true));
             
-            $xmlFile->asXML("src/xml/MedicalAppointments.xml");
+            $data = array('id' => $id, 'patientId' => $patientID,'patient' => $patientName,'prescription' => $prescription,'observations' => $observations,'doctorId' => $doctorID,'doctor' => $doctorName,'date' => $date);
+            $this->insert($data, 'INSERT INTO medical_appointments(id,patientId,patient,doctor,doctorId,date,prescription,observations) VALUES (:id,:patientId,:patient,:doctor,:doctorId,:date,:prescription,:observations);' );
 
             header("Location: /sismed/consultas/");
         }
 
         public function getConsultaByID(){
-            $this->loadAllAppointments();
 
             if(isset($_POST['queryString'])) {
                 $queryString = $_POST['queryString'];
                 
                 if(strlen($queryString) > 0) {
-                    $key = array_search($queryString, array_column($this->medical_appointments, 'id'));
                     
-                    if($key === 0 || $key > 0) {
-                        $consulta = array(
-                            "id" => $this->medical_appointments[$key]["id"],
-                            "date"=> $this->medical_appointments[$key]["date"],
-                            "patient" => $this->medical_appointments[$key]["patient"],
-                            "patientID" => $this->medical_appointments[$key]["patientID"],
-                            "prescription" => $this->medical_appointments[$key]["prescription"],
-                            "observations" => $this->medical_appointments[$key]["observations"],
-                        );
-
-                        return json_encode($consulta);
+                    $consulta = $this->get("SELECT * FROM medical_appointments WHERE id='$queryString';");
+                    if(count($consulta) > 0) {
+                        $key = array_search($queryString, array_column($consulta, 'id'));
+                        return json_encode($consulta[$key]);
                     } 
                 }
             }
@@ -69,8 +50,6 @@
         }
 
         public function editarConsulta(){
-            $this->loadAllAppointments();
-
             $consultaID = $_POST["consultaID-edit"];
             $patientID = $_POST["patientID-edit"];
             $patientName = $_POST["patient"];
@@ -78,19 +57,11 @@
             $observations = $_POST["observations-edit"];
             $date = $_POST["date-edit"]." ".$_POST["timepicker-edit"]; 
 
-            $key = array_search($consultaID, array_column($this->medical_appointments, 'id'));
+            $consulta = $this->get("SELECT * FROM medical_appointments WHERE id='$consultaID';");
 
-            if($key === 0 || $key > 0) {
-                $xmlFile = simplexml_load_file("src/xml/MedicalAppointments.xml");
-    
-                $consulta = $xmlFile->medical_appointment[$key];
-                $consulta->patientID = $patientID;
-                $consulta->patient = $patientName;
-                $consulta->prescription = $prescription;
-                $consulta->observations = $observations;
-                $consulta->date = $date;
-    
-                $xmlFile->asXML("src/xml/MedicalAppointments.xml");
+            if(count($consulta) > 0) {
+                $data = array('id' => $consultaID, 'patientId' => $patientID,'patient' => $patientName,'prescription' => $prescription,'observations' => $observations,'date' => $date);
+                $this->update($data, "UPDATE medical_appointments SET id=:id,patientId=:patientId,patient=:patient,prescription=:prescription,observations=:observations,date=:date WHERE id=:id;");
 
                 header("Location: /sismed/consultas/");
             } else {
@@ -99,61 +70,21 @@
 
         }
 
-        private function loadAllAppointments(){
-            $xmlFile = simplexml_load_file("src/xml/MedicalAppointments.xml");
-
-            foreach ($xmlFile->children() as $medical_appointment) {
-                array_push($this->medical_appointments, array(
-                    "id" => $medical_appointment->id->__toString(),
-                    "date" => $medical_appointment->date->__toString(),
-                    "doctor" => $medical_appointment->doctor->__toString(),
-                    "doctorID" => $medical_appointment->doctorID->__toString(),
-                    "patient" => $medical_appointment->patient->__toString(),
-                    "patientID" => $medical_appointment->patientID->__toString(),
-                    "prescription" => $medical_appointment->prescription->__toString(),
-                    "observations" => $medical_appointment->observations->__toString(),
-                ));
-            }  
-
-        }
-
         private function loadAllAppointmentsByDoctorID($doctorID){
-            $xmlFile = simplexml_load_file("src/xml/MedicalAppointments.xml");
+            $dbData = $this->get("SELECT * FROM medical_appointments WHERE doctorId='$doctorID';");
 
-            foreach ($xmlFile->children() as $medical_appointment) {
-                if($medical_appointment->doctorID->__toString() === $doctorID){
-                    array_push($this->medical_appointments, array(
-                        "id" => $medical_appointment->id->__toString(),
-                        "date" => $medical_appointment->date->__toString(),
-                        "doctor" => $medical_appointment->doctor->__toString(),
-                        "doctorID" => $medical_appointment->doctorID->__toString(),
-                        "patient" => $medical_appointment->patient->__toString(),
-                        "patientID" => $medical_appointment->patientID->__toString(),
-                        "prescription" => $medical_appointment->prescription->__toString(),
-                        "observations" => $medical_appointment->observations->__toString(),
-                    ));
-                }
-            }  
+            foreach ($dbData as $consulta) {
+                array_push($this->medical_appointments, $consulta);
+            }
 
         }
 
         private function loadAllAppointmentsByPatientID($patientID){
-            $xmlFile = simplexml_load_file("src/xml/MedicalAppointments.xml");
+            $dbData = $this->get("SELECT * FROM medical_appointments WHERE patientId='$patientID';");
 
-            foreach ($xmlFile->children() as $medical_appointment) {
-                if($medical_appointment->patientID->__toString() === $patientID){
-                    array_push($this->medical_appointments, array(
-                        "id" => $medical_appointment->id->__toString(),
-                        "date" => $medical_appointment->date->__toString(),
-                        "doctor" => $medical_appointment->doctor->__toString(),
-                        "doctorID" => $medical_appointment->doctorID->__toString(),
-                        "patient" => $medical_appointment->patient->__toString(),
-                        "patientID" => $medical_appointment->patientID->__toString(),
-                        "prescription" => $medical_appointment->prescription->__toString(),
-                        "observations" => $medical_appointment->observations->__toString(),
-                    ));
-                }
-            }  
+            foreach ($dbData as $consulta) {
+                array_push($this->medical_appointments, $consulta);
+            }
 
         }
     }

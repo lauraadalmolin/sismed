@@ -6,6 +6,7 @@
         private $home_cards;
 
         public function showHomeView(){
+
             if($this->user["role"] === "patient"){
                 $this->home_cards = array(
                     array(
@@ -54,7 +55,6 @@
                     ),
                 );
             }
-            
             return $this->twig->render("IndexView.twig", ["cards" => $this->home_cards]);
         }
 

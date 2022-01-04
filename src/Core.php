@@ -162,10 +162,10 @@
             
             if(isset($user_session)){
                 $this->user = array(
-                    "name" => $user_session["name"][0],
-                    "id" => $user_session["id"][0],
-                    "role" => $user_session["role"][0],
-                    "email" => $user_session["email"][0],
+                    "name" => $user_session["name"],
+                    "id" => $user_session["id"],
+                    "role" => $user_session["role"],
+                    "email" => $user_session["email"],
                 );
                 
                 $initials = $this->getInitialsName($this->user["name"]);

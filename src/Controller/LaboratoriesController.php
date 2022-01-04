@@ -13,7 +13,6 @@
         }
 
         public function novoLaboratorio(){
-            $this->loadAllLaboratories();
             $cnpj = $_POST["cnpj"]; //CHAVE ÚNICA
             $name = $_POST["name"];
             $email = $_POST["email"];
@@ -22,48 +21,25 @@
             $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
 
-            $key = array_search($cnpj, array_column($this->laboratories, 'cnpj'));
+            $dbData = $this->get("SELECT * FROM laboratories WHERE cnpj='$cnpj'");
        
-            if($key === 0 || $key > 0) {
+            if(count($dbData)) {
                 header("Location: /sismed/laboratorios/");
 
-            } else {
-                $xmlFile = simplexml_load_file("src/xml/Laboratories.xml");
-                
+            } else {                
                 $id = md5(uniqid(rand(), true));
 
-                $lab = $xmlFile->addChild("laboratory");
-                $lab->addChild("id", $id);
-                $lab->addChild("cnpj", $cnpj);
-                $lab->addChild("name", $name);
-                $lab->addChild("email", $email);
-                $lab->addChild("address", $address);
-                $lab->addChild("phone", $phone);
-    
-                $xmlFile->asXML("src/xml/Laboratories.xml");
+                $data = array('cnpj' => $cnpj,'id' => $id,'name' => $name,'email' => $email,'address' => $address,'phone' => $phone);
+                $this->insert($data, 'INSERT INTO laboratories(id,cnpj,name,email,address,phone) VALUES (:id,:cnpj,:name,:email,:address,:phone);');
+                $userData = array('id' => $id, 'name' => $name, 'email' => $email, 'password' => $password, 'role' => 'laboratorie', );
+                $this->insert($userData, "INSERT INTO users(id, name, email, password, role) VALUES(:id,:name,:email,:password,:role);");
 
-                $xmlFile_users = simplexml_load_file("src/xml/Users.xml");
-
-                $user = $xmlFile_users->addChild("user");
-                
-                $user->addChild("id", $id);
-                $user->addChild("email", $email);
-                $user->addChild("password", $password);
-                $user->addChild("role", 'laboratorie');
-
-                $xmlFile_users->asXML("src/xml/Users.xml");
-
-                // $lab = array('id' => $id, 'cnpj' => $cnpj, 'name' => $name, 'email' => $email, 'address' => $address, 'phone' => $phone);
-                // $this->insertLab($lab);
                 header("Location: /sismed/laboratorios/");
             }
 
         }
 
         public function editarLaboratorio(){
-            $this->loadAllLaboratories();
-            $this->loadAllUsers();
-
             $cnpj = $_POST["cnpj-edit"]; //CHAVE ÚNICA
             $id = $_POST["labID-edit"];
             $name = $_POST["name-edit"];
@@ -71,34 +47,14 @@
             $address = $_POST["address-edit"];
             $phone = $_POST["phone-edit"];
 
-            $key = array_search($id, array_column($this->laboratories, 'id'));
+            $lab = $this->get("SELECT * FROM laboratories WHERE id='$id'");
 
-            if($key === 0 || $key > 0) {
-                $xmlFile = simplexml_load_file("src/xml/Laboratories.xml");
+            if(count($lab) > 0) {
+                $data = array('cnpj' => $cnpj,'id' => $id,'name' => $name,'email' => $email,'address' => $address,'phone' => $phone);
+                $this->update($data, 'UPDATE laboratories SET id=:id,cnpj=:cnpj,name=:name,email=:email,address=:address,phone=:phone WHERE id=:id');
+                $data = array('email' => $email, 'id' => $id);
+                $this->update($data, 'UPDATE users SET email=:email WHERE id=:id');               
                 
-                $lab = $xmlFile->laboratory[$key];
-
-                $lab->cnpj = $cnpj;
-                $lab->name = $name;
-                $lab->email = $email;
-                $lab->address = $address;
-                $lab->phone = $phone;
-    
-                $xmlFile->asXML("src/xml/Laboratories.xml");
-
-                $key = array_search($id, array_column($this->users, 'id'));
-
-                if($key === 0 || $key > 0) {
-                    $xmlFile_users = simplexml_load_file("src/xml/Users.xml");
-                    
-                    $user = $xmlFile_users->user[$key];
-                    
-                    $user->email = $email;
-
-                    $xmlFile_users->asXML("src/xml/Users.xml");
-
-                }
-
                 header("Location: /sismed/laboratorios/");
 
             } else {
@@ -109,25 +65,14 @@
         }
 
         public function getLaboratoryByID(){
-            $this->loadAllLaboratories();
-
             if(isset($_POST['queryString'])) {
                 $queryString = $_POST['queryString'];
                 
                 if(strlen($queryString) > 0) {
-                    $key = array_search($queryString, array_column($this->laboratories, 'id'));
-                    
-                    if($key === 0 || $key > 0) {
-                        $lab = array(
-                            "id" => $this->laboratories[$key]["id"],
-                            "name"=> $this->laboratories[$key]["name"],
-                            "address" => $this->laboratories[$key]["address"],
-                            "phone" => $this->laboratories[$key]["phone"],
-                            "email" => $this->laboratories[$key]["email"],
-                            "cnpj" => $this->laboratories[$key]["cnpj"],
-                        );
-
-                        return json_encode($lab);
+                    $lab = $this->get("SELECT * FROM laboratories WHERE id='$queryString'");
+                    if(count($lab) > 0) {
+                        $key = array_search($queryString, array_column($lab, 'id'));
+                        return json_encode($lab[$key]);
                     } 
                 }
             }
@@ -142,19 +87,6 @@
             }
         }
 
-        // private function loadAllUsers(){
-        //     $xmlFile_users = simplexml_load_file("src/xml/Users.xml");
-
-        //     foreach ($xmlFile_users->children() as $user) {
-            
-        //         array_push($this->users, array(
-        //             "id" => $user->id->__toString(),
-        //             "name" => $user->name->__toString(),
-        //             "email" => $user->email->__toString(),
-        //             "role" => $user->role->__toString(),
-        //         ));
-        //     } 
-        // }
     }
     
 ?>
