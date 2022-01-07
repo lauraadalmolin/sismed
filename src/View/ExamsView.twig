@@ -3,9 +3,33 @@
 {% block isLogin %}{% endblock %}
 
 {% block body_content %}
+
+    <style>
+        .badge {
+            color: white;
+            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 4px;
+            margin-right: 12px;
+        }
+        .current-month {
+            background-color: gray;
+        }
+        .counters {
+            background-color: #2746e4e0;
+            
+        }
+    </style>
+
     <div class="container-fluid">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Exames</h1>
+            <h1 class="h3 mb-0 teste1234">Exames</h1>
+            <div class="d-sm-flex align-items-center mb-4">
+                <p class="badge current-month">Mês atual: {{month}}</p>
+                <p class="badge counters">Exames no mês atual: {{ current_month }}</p>
+                <p class="badge counters">Exames no ano atual: {{ current_year }}</p>
+                <p class="badge counters">Média mensal até o mês atual: {{avg_per_month }}</p>
+            </div>
         </div>
         <div >
             <button class="btn btn-primary" onClick="history.go(-1)" >Voltar</button>
@@ -16,5 +40,7 @@
         {% include "Components/tables/exams.twig" %}
         {% include "Components/modals/exams.twig" %}
     </div>
+
+   
 
 {% endblock %}

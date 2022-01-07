@@ -7,14 +7,36 @@
         private $medical_appointments = [];
 
         public function showMedicalAppointmentsView(){
-            if($this->user["role"] === "doctor"){
-                $this->loadAllAppointmentsByDoctorID($this->user["id"]);
-            } else {
-                $this->loadAllAppointmentsByPatientID($this->user["id"]);
+            
+            $idType = "patientId";
+            if ($this->user["role"] === "doctor") {
+                $idType = 'doctorId';
             }
 
-            return $this->twig->render("MedicalAppointmentsView.twig", ["medical_appointments" => $this->medical_appointments]);
+            $userId = $this->user["id"];
+
+            $dbData = $this->get("SELECT * FROM medical_appointments WHERE $idType='$userId';");
+
+            foreach ($dbData as $consulta) {
+                array_push($this->medical_appointments, $consulta);
+            }
+
+            $current_month = $this->get("SELECT COUNT(date) as result from medical_appointments where MONTH(date)=MONTH(now()) and YEAR(date)=YEAR(now()) and $idType='$userId';")[0]["result"];
+            $current_year = $this->get("SELECT COUNT(date) as result from medical_appointments where MONTH(date)<=MONTH(now()) and YEAR(date)=YEAR(now()) and $idType='$userId';")[0]["result"];
+            $avg_per_month = $current_year / date('m');
+            $month = $this->getFullMonth();
+
+            return $this->twig->render("MedicalAppointmentsView.twig",
+                ["medical_appointments" => $this->medical_appointments, "current_month" => $current_month,
+                "current_year" => $current_year, "avg_per_month" => $avg_per_month, "month" => $month]);
+
         }
+
+        public function getFullMonth() {
+            $months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Setembro', 'Novembro', 'Dezembro'];
+            return $months[date('m') - 1];
+        }
+
 
         public function novaConsulta(){
             $patientID = $_POST["patientID"];
@@ -81,7 +103,7 @@
 
         private function loadAllAppointmentsByPatientID($patientID){
             $dbData = $this->get("SELECT * FROM medical_appointments WHERE patientId='$patientID';");
-
+            
             foreach ($dbData as $consulta) {
                 array_push($this->medical_appointments, $consulta);
             }

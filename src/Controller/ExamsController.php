@@ -5,16 +5,36 @@
     class ExamsController extends Core {
 
         private $exams = [];
+       
+        public function showExamsView() {
+            $idType = 'patientId';
+            
+            if ($this->user["role"] === "laboratorie"){
+                $idType = 'laboratoryId';
+            } 
+            
+            $userId = $this->user["id"];
+            $dbData = $this->get("SELECT * FROM exams WHERE $idType='$userId';");
 
-        public function showExamsView(){
-            if($this->user["role"] === "laboratorie"){
-                $this->loadAllExamsByLabID($this->user["id"]);
-            } else {
-                $this->loadAllExamsByPatientID($this->user["id"]);
+            foreach ($dbData as $exam) {
+                array_push($this->exams, $exam);
             }
 
-            return $this->twig->render("ExamsView.twig", ["exams" => $this->exams]);
+            $current_month = $this->get("SELECT COUNT(date) as result from exams where MONTH(date)=MONTH(now()) and YEAR(date)=YEAR(now()) and $idType='$userId';")[0]["result"];
+            $current_year = $this->get("SELECT COUNT(date) as result from exams where MONTH(date)<=MONTH(now()) and YEAR(date)=YEAR(now()) and $idType='$userId';")[0]["result"];
+            $avg_per_month = $current_year / date('m');
+
+            $month = $this->getFullMonth();
+    
+            return $this->twig->render("ExamsView.twig", ["exams" => $this->exams, "current_month" => $current_month, "current_year" => $current_year, "avg_per_month" => $avg_per_month, "month" => $month]);
         }
+
+        public function getFullMonth() {
+            $months = ['Janeiro', 'Fevereiro','Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Setembro', 'Novembro', 'Dezembro'];
+            return $months[date('m') - 1];
+        }
+
+
         public function novoExame(){
             $patientID = $_POST["patientID"];
             $patientName = $_POST["patient"];
@@ -64,20 +84,5 @@
                 }
             }
             return null;
-        }
-
-        private function loadAllExamsByLabID($labID){
-            $dbData = $this->get("SELECT * FROM exams WHERE laboratoryId='$labID';");
-
-            foreach ($dbData as $exam) {
-                array_push($this->exams, $exam);
-            }
-        }
-        private function loadAllExamsByPatientID($patientID){
-            $dbData = $this->get("SELECT * FROM exams WHERE patientId='$patientID';");
-
-            foreach ($dbData as $exam) {
-                array_push($this->exams, $exam);
-            }
         }
     }
